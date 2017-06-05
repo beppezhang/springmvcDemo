@@ -8,4 +8,8 @@ public class Demo1 {
 	public void D(){
 		System.out.println("add method d");
 	}
+	
+	public void E(){
+		System.out.println("add method E");
+	}
 }
