@@ -9,4 +9,8 @@ public class Demo1 {
 	public void A(){
 		System.out.println("this is a commit");
 	}
+	
+	public void B(){
+		System.out.println("this is b commit");
+	}
 }
