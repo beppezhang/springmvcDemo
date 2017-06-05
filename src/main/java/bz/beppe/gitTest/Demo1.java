@@ -13,4 +13,8 @@ public class Demo1 {
 	public void B(){
 		System.out.println("this is b commit");
 	}
+	
+	public void C(){
+		System.out.println("this is C commit");
+	}
 }
