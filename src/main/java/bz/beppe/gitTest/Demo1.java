@@ -29,4 +29,10 @@ public class Demo1 {
 	public void sleep(){
 		System.out.println("增加了睡眠的方法'");
 	}
+	
+	public void feature1(){
+		System.out.println("增加了feature1的方法'");
+	}
+	
+	
 }
