@@ -42,5 +42,8 @@ public class Demo1 {
 		System.out.println("增加了dev1的方法'");
 	}
 	
+	public void dev2(){
+		System.out.println("增加了dev的方法'");
+	}
 	
 }
