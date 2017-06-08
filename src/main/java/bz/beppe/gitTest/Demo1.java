@@ -25,4 +25,8 @@ public class Demo1 {
 		System.out.println("add method E");
 		System.out.println("修改了bug");
 	}
+	
+	public void sleep(){
+		System.out.println("增加了睡眠的方法'");
+	}
 }
