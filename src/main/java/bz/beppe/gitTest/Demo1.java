@@ -37,4 +37,10 @@ public class Demo1 {
 		System.out.println("增加了feature2的方法'");
 	}
 	
+	
+	public void dev1(){
+		System.out.println("增加了dev1的方法'");
+	}
+	
+	
 }
