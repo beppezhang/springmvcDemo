@@ -33,6 +33,8 @@ public class Demo1 {
 	public void feature1(){
 		System.out.println("增加了feature1的方法'");
 	}
-	
+	public void feature2(){
+		System.out.println("增加了feature2的方法'");
+	}
 	
 }
