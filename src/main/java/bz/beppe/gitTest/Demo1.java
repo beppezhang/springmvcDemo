@@ -23,5 +23,6 @@ public class Demo1 {
 	
 	public void E(){
 		System.out.println("add method E");
+		System.out.println("修改了bug");
 	}
 }
