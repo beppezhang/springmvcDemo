@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:context="http://www.springframework.org/schema/context"
+
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+    ">
+   
+
+    <!-- CachingConnectionFactory 连接工厂 （有缓存功能）-->
+    <bean id="cachingConnectionFactory"
+        class="org.springframework.jms.connection.CachingConnectionFactory">
+        <!-- Session缓存数量 -->
+        <property name="sessionCacheSize" value="20" />
+        <property name="targetConnectionFactory">  
+            <bean class="org.apache.activemq.ActiveMQConnectionFactory">  
+                <!-- MQ地址 账户名 密码-->  
+                <property name="brokerURL" value="tcp://192.168.90.158:61616" />
+                <property name="userName" value="admin" />
+                <property name="password" value="admin" />
+                <!-- 是否异步发送 -->
+                <property name="useAsyncSend" value="true"/>
+            </bean>  
+        </property>  
+    </bean>
+    
+    <!-- 接收消息的目的地（一个主题）点对点队列 -->
+    <bean id="destination" class="org.apache.activemq.command.ActiveMQQueue">
+        <!-- 设置消息主题的名字 -->
+        <constructor-arg index="0" value="messages" />
+        
+    </bean>
+    
+    <!-- 消费者配置 （自己定义） -->
+    <bean id="consumer" class="bz.beppe.common.Listener" />
+    
+    <!-- 消息监听容器 -->
+    <bean id="myListenerContainer"
+        class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="cachingConnectionFactory" />
+        <property name="destination" ref="destination" />
+        <property name="messageListener" ref="consumer" />
+        <!-- 如果消息的接收速率,大于消息处理的速率时,可以采取线程池方式 -->
+        <property name="taskExecutor" ref="queueMessageExecutor"/>
+        <!-- 设置固定的线程数 -->
+        <property name="concurrentConsumers" value="30"/>
+        <!-- 设置动态的线程数 -->
+        <property name="concurrency" value="20-50"/>
+        <!-- 设置最大的线程数 -->
+        <property name="maxConcurrentConsumers" value="80"/>
+    </bean>
+    <bean id="queueMessageExecutor"
+        class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="30" />
+        <property name="maxPoolSize" value="80" />
+        <property name="daemon" value="true" />
+        <property name="keepAliveSeconds" value="120" />
+    </bean>
+</beans>
+      
+      
+      
+      
+      
+      
+      
+      

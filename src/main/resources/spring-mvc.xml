@@ -2,7 +2,6 @@
 <beans 
       xmlns="http://www.springframework.org/schema/beans"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:security="http://www.springframework.org/schema/security"
       xmlns:context="http://www.springframework.org/schema/context"
       xmlns:mvc="http://www.springframework.org/schema/mvc"
 		
@@ -24,6 +23,13 @@
 	  <!--  自动扫描该包，使SpringMVC认为包下用了 @controller注解的类是控制器    -->  
 	  <context:component-scan base-package="bz.beppe.controller"/>
 	  <context:component-scan base-package="bz.beppe.common"/>
+	  <context:component-scan base-package="bz.beppe.configration"/>
+	  <import resource="applicationContext-mybatis.xml"/>
+	  <import resource="activitemq-server.xml"/>
+	  <import resource="activitemq-client.xml"/>
+	  
+
+
 	  
 	  <mvc:annotation-driven conversion-service="customDateFormat">
 	  	<mvc:message-converters>

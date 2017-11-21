@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:context="http://www.springframework.org/schema/context"
+
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+    ">
+   
+
+    <bean id="helloWorldImpl" class="bz.beppe.test.AOP.HelloWorldImpl"></bean>
+
+    <bean id="aopHandler" class="bz.beppe.test.AOP.AOPHandler"></bean>
+
+    <aop:config>
+        <aop:aspect id="aop" ref="aopHandler">
+            <aop:pointcut id="addAllMethod" expression="execution(* bz.beppe.test.AOP.HelloWorld.*(..))" />
+            <aop:before method="timeHandler" pointcut-ref="addAllMethod" />
+            <aop:after method="logHandler" pointcut-ref="addAllMethod" />
+        </aop:aspect>
+    </aop:config>
+
+
+
+</beans>
+      
+      
+      
+      
+      
+      
+      
+      

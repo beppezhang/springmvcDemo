@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bz.beppe.dao.CountryMapper">
+  <resultMap id="BaseResultMap" type="bz.beppe.entity.Country">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  
+  <select id="selectById"  resultMap="BaseResultMap">
+    select c.* from country c where c.code=#{code}
+  </select>
+  <insert  id="insert" parameterType="bz.beppe.entity.Country">
+    insert into country (id,name,code,create_time) values (#{id},#{name},#{code},#{createTime})
+  </insert >
+
+  <update  id="update" >
+    UPDATE country set score=score+#{add} where id=#{id}
+  </update >
+  
+  <select id="selectCountris"  resultMap="BaseResultMap">
+    select c.* from country c 
+  </select>
+  
+</mapper>

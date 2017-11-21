@@ -2,15 +2,31 @@
 <web-app id="WebApp_ID" version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" 
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 		xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-        <!-- 
+         
+         <!-- 
  		<listener>
 	  		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	  	</listener>
 	  	<context-param>
 	  		<param-name>contextConfigLocation</param-name>
-	  		<param-value>classpath:spring-quartz.xml</param-value>
+	  		<param-value>classpath:applicationContext-mybatis.xml</param-value>
 	  	</context-param>
 	  	 -->
+	  	 <!-- 配置shiro -->
+		 <!-- shiro过滤器定义 -->
+		 <filter>
+		     <filter-name>shiroFilter</filter-name>
+		     <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		     <init-param>
+		         <!-- 该值缺省为false,表示生命周期由SpringApplicationContext管理,设置为true则表示由ServletContainer管理 -->
+		         <param-name>targetFilterLifecycle</param-name>
+		         <param-value>true</param-value>
+		     </init-param>
+		 </filter>
+		 <filter-mapping>
+		     <filter-name>shiroFilter</filter-name>
+		     <url-pattern>/*</url-pattern>
+		 </filter-mapping>
 		<!-- 注册 DispatcherServlet分发器，启动spring容器-->
 		<servlet>
 		  	<servlet-name>DispatcherServlet</servlet-name>
@@ -26,5 +42,26 @@
 		  	<servlet-name>DispatcherServlet</servlet-name>
 		  	<url-pattern>/</url-pattern>
 		 </servlet-mapping>
+		 
+		 
+
+		 
+		 <!-- HessianServlet 配置 -->
+		 <servlet>
+	         <!-- 配置 HessianServlet，Servlet的名字随便配置，例如这里配置成ServiceServlet-->
+	         <servlet-name>ServiceServlet</servlet-name>
+	         <servlet-class>com.caucho.hessian.server.HessianServlet</servlet-class>
+	         
+	         <!-- 配置接口的具体实现类 -->
+	         <init-param>
+	             <param-name>service-class</param-name>
+	             <param-value>bz.beppe.service.impl.UserServiceImpl</param-value>
+	         </init-param>
+     	 </servlet>
+     	<!-- 映射 HessianServlet的访问URL地址-->
+	     <servlet-mapping>
+	         <servlet-name>ServiceServlet</servlet-name>
+	         <url-pattern>/ServiceServlet</url-pattern>
+	     </servlet-mapping>
 		
 </web-app>
